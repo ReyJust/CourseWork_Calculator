@@ -1,9 +1,11 @@
 from tkinter import *
 from tkinter import ttk
+from math import sqrt as sqrt
+
 
 #Main window settings
 root = Tk()
-root.configure(width=300, height=385,bg='#515151')
+root.configure(width=300, height=400,bg='#515151')
 root.resizable(False, False)
 #Window appear at the middle of the screen
 posRight = int(root.winfo_screenwidth() / 2 - 300 / 2)
@@ -115,12 +117,13 @@ def delete():
     value1.set(expression)
     value2.set(expression)
 
+
 def Hover(button, color1, color2):
     button.bind("<Enter>", func=lambda e: button.config(background=color1))
     button.bind("<Leave>", func=lambda e: button.config(background=color2))
     
 #Setting for nice aligned grid
-for i in range(6):
+for i in range(7):
     Number.grid_rowconfigure(i, pad=1)
 
 for i in range(4):
@@ -128,6 +131,13 @@ for i in range(4):
 
 ##########Content##########
 #BUTTONS
+#####WHY LAMBDA########
+#IN TKINTER BUTTONS , you can't pass a functions with arguments as tkinter were build like this.
+#ex B0 = Buttom(command=press(1))
+#But with lambda , we can do it in the button define section.
+#Lambda function is used for throw away function or functions to be anonymous as they have no identifier and have a single expression.
+#That mean lambda function always return a value
+#So we use Lambda here to pass an argument into the function for the buttons
 B0 = Button(Number,text='0', font=('Bahnschrift', 10 ),width=9,height=3,bg='#212121',fg="#f1f1f1",activebackground='#FF590C',relief=FLAT,command=lambda: press(0))
 B0.grid(row=5,column=1)
 B1 = Button(Number,text='1', font=('Bahnschrift', 10 ),width=9,height=3,bg='#212121',fg="#f1f1f1",activebackground='#FF590C',relief=FLAT,command=lambda: press(1))
@@ -160,7 +170,7 @@ Bdot.grid(row=5,column=2)
 Bdivide = Button(Number,text='%', font=('Bahnschrift', 10 ),width=9,height=3,bg='#313131',fg="#f1f1f1",activebackground='#FF590C',relief=FLAT,command=lambda: press("/"))
 Bdivide.grid(row=5,column=4)
 Bmultiply = Button(Number,text='*', font=('Bahnschrift', 10 ),width=9,height=3,bg='#313131',fg="#f1f1f1",activebackground='#FF590C',relief=FLAT,command=lambda: press("*"))
-Bmultiply.grid(row=5,column=3)
+Bmultiply.grid(row=6,column=4)
 Bsub = Button(Number,text='-', font=('Bahnschrift', 10 ),width=9,height=3,bg='#313131',fg="#f1f1f1",activebackground='#FF590C',relief=FLAT,command=lambda: press("-"))
 Bsub.grid(row=4,column=4)
 Bplus = Button(Number,text='+', font=('Bahnschrift', 10 ),width=9,height=3,bg='#313131',fg="#f1f1f1",activebackground='#FF590C',relief=FLAT,command=lambda: press("+"))
@@ -172,13 +182,18 @@ Bparenthesis1.grid(row=6,column=1)
 Bparenthesis2 = Button(Number,text=')', font=('Bahnschrift', 10 ),width=9,height=3,bg='#313131',fg="#f1f1f1",activebackground='#FF590C',relief=FLAT,command=lambda: press(")"))
 Bparenthesis2.grid(row=6,column=2)
 Bequal = Button(Number,text='=', font=('Bahnschrift', 10 ),width=9,height=3,bg='#ff590C',fg="#f1f1f1",activebackground='#FF590C',relief=FLAT,command=equal)
-Bequal.grid(row=6,column=4)
+Bequal.grid(row=7,column=4)
 Bbackspace = Button(Number,text='Del', font=('Bahnschrift', 10 ),width=9,height=3,bg='#313131',fg="#f1f1f1",activebackground='#FF590C',relief=FLAT,command=Backspace)
 Bbackspace.grid(row=3,column=4)
-
+Bpowtwo = Button(Number,text='^2', font=('Bahnschrift', 10 ),width=9,height=3,bg='#313131',fg="#f1f1f1",activebackground='#FF590C',relief=FLAT,command=lambda: press("**2"))
+Bpowtwo.grid(row=7,column=1)
+Bpow = Button(Number,text='^', font=('Bahnschrift', 10 ),width=9,height=3,bg='#313131',fg="#f1f1f1",activebackground='#FF590C',relief=FLAT,command=lambda: press("**"))
+Bpow.grid(row=7,column=2)
+Bsqrt = Button(Number,text='sqrt', font=('Bahnschrift', 10 ),width=9,height=3,bg='#313131',fg="#f1f1f1",activebackground='#FF590C',relief=FLAT,command=lambda: press("sqrt("))
+Bsqrt.grid(row=7,column=3)
 ########HOVERING SETTINGS#########
 Button_list = [B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,Bdot]
-Operations = [Bdivide,Bmultiply,Bsub,Bplus,C,Bbackspace,Bparenthesis1,Bparenthesis2]
+Operations = [Bdivide,Bmultiply,Bsub,Bplus,C,Bbackspace,Bparenthesis1,Bparenthesis2,Bsqrt,Bpow,Bpowtwo]
 for item in range(len(Button_list)):
     Hover(Button_list[item], '#3F3F3F', '#212121')
 for item in range(len(Operations)):
